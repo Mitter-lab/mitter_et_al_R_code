@@ -33,9 +33,6 @@ treatment=c(rep("mq",
 )
 experiment=data.frame(all_activity,treatment)
 
-#boxplot
-plot(all_activity~treatment, data=experiment)
-
 #test for normality (threshold = 0.01 given the tests are quite robust)
 shapiro.test(mq)
 shapiro.test(gus_naked)
@@ -50,7 +47,7 @@ shapiro.test(ldh)
 leveneTest(all_activity~treatment, data=experiment)
 #null hypothesis -> variances same for all groups - NOT REJECTED
 
-#ANOVA then pairwiase t test with holm adjustment
+#ANOVA then pairwise t test with holm adjustment
 fit <- aov(all_activity~treatment, data=experiment)
 pairwise.t.test(all_activity, treatment, p.adj = "holm")
 
@@ -79,9 +76,6 @@ treatment=c(rep("mq",
                 length(ldh))
 )
 experiment=data.frame(all_activity,treatment)
-
-#boxplot
-plot(all_activity~treatment, data=experiment)
 
 #test for normality (threshold = 0.01 given the tests are quite robust)
 shapiro.test(mq)
@@ -128,8 +122,6 @@ treatment=c(rep("ldh",
                 length(bioclay_lesions)))
 experiment=data.frame(lesions,treatment)
 
-#boxplot
-plot(lesions~treatment, data=experiment)
 
 #test for normality (threshold = 0.01 given the tests are quite robust)
 shapiro.test(ldh_lesions)
@@ -214,8 +206,6 @@ treatment=c(rep("water",
 
 experiment=data.frame(lesions,treatment)
 
-#boxplot
-plot(lesions~treatment, data=experiment)
 
 #test for normality (threshold = 0.01 given the tests are quite robust)
 shapiro.test(water_lesions)
@@ -366,9 +356,6 @@ treatment=c(rep("mq",
 )
 experiment=data.frame(all_gus,treatment)
 
-#boxplot
-plot(all_gus~treatment, data=experiment)
-
 #test for normality (threshold = 0.01 given the tests are quite robust)
 shapiro.test(mq)
 shapiro.test(depc)
@@ -415,8 +402,6 @@ treatment=c(rep("water_only",
 
 experiment=data.frame(all_treatments,treatment)
 
-#boxplot
-plot(all_treatments~treatment, data=experiment)
 
 #test for normality (threshold = 0.01 given the tests are quite robust)
 shapiro.test(water_only)
@@ -427,14 +412,6 @@ shapiro.test(dsRNA_2b)
 #bartlett.test(all_gus~treatment, data=experiment)
 leveneTest(all_treatments~treatment, data=experiment)
 #null hypothesis -> variances same for all groups - NOT REJECTED
-
-# #ANOVA then holm adjustment
-# fit <- aov(all_treatments~treatment, data=experiment)
-# summary(fit)
-# pairwise.t.test(all_treatments, treatment, p.adj = "holm")
-# 
-# #One way test with equal variances - holm multiple correction
-# oneway(x=experiment$treatment,y=experiment$all_treatments, levene=FALSE, posthoc="hochberg")
 
 #Due to unequal variances:
 kruskal.test(all_treatments~treatment, data=experiment)
