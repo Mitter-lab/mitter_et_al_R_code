@@ -6,8 +6,8 @@ library(Rcmdr)
 library(coin)
 options(scipen = 999)
 
-#Fig_5
-#Figure 5a
+#Fig_2
+#Figure 5c
 #WT
 mq=c(476,455,589,455,509,613,878,788,574,470,522,543,501,619,644,529)
 gus_naked=c(506.4507516,400.0501926,366.7057348,368.3613142,313.1467229,521.103247,545.8527425,473.4546329,414.2519787,447.1227202,414.0580917,398.8375488,380.5363008,379.0190864,419.3164789,397.337978)
@@ -51,55 +51,8 @@ leveneTest(all_activity~treatment, data=experiment)
 fit <- aov(all_activity~treatment, data=experiment)
 pairwise.t.test(all_activity, treatment, p.adj = "holm")
 
-#Figure 5b
-#rdr6
-mq=c(666.5920573,798.7708326,534.8607055,438.0662022,778.156637,434.0394856,511.920889,409.0039689,703.9472216,849.6336698,493.794251,340.9954782,476.0063279,586.6278142,578.0933978,582.2528012)
-gus_naked=c(685.1519238,586.2033966,479.7860186,642.913244,597.9235745,503.480292,464.897759,579.500643,546.5996762,499.0580109,482.825204,388.4233049,535.3115644,505.4821381,641.5349558,524.7302206)
-gus_bioclay=c(508.2101485,700.5133652,447.4379401,605.8279377,333.4488746,444.4496665,652.6108734,700.0683604,533.0747524,529.6836837,450.122061,524.4442716,488.7597367,497.3621127,490.3120412,633.6793683)
-l4440=c(571.3947454,536.9072912,532.2696333,413.3470774,467.2919079,397.0003871,571.2685329,805.769811,479.4042203,442.3843028,493.5510955,771.4799715,414.2711082,470.4928394,488.5101947,485.7356925)
-two_b=c(556.8044942,546.5144189,461.4792126,688.2985497,487.600733,542.1384929,610.7052034,689.4803942,456.3213336,434.6173841,489.2068345,435.5745154,519.4771682,536.5032039,511.6647207,445.7231717)
-ldh=c(467.647423,531.4474401,723.8934533,692.472472,550.5845424,618.6863964,613.4382178,523.9523857,645.6217627,524.747695,423.69807,427.7954483,448.9750848,420.1292172,699.2412305,527.8256575)
-
-all_activity = c(mq, gus_naked, gus_bioclay, l4440, two_b, ldh)
-
-treatment=c(rep("mq",
-                length(mq)),
-            rep("gus_naked",
-                length(gus_naked)),
-            rep("gus_bioclay",
-                length(gus_bioclay)),
-            rep("l4440",
-                length(l4440)),
-            rep("two_b",
-                length(two_b)),
-            rep("ldh",
-                length(ldh))
-)
-experiment=data.frame(all_activity,treatment)
-
-#test for normality (threshold = 0.01 given the tests are quite robust)
-shapiro.test(mq)
-shapiro.test(gus_naked)
-shapiro.test(gus_bioclay)
-shapiro.test(l4440)
-shapiro.test(two_b)
-shapiro.test(ldh)
-
-#null hypothesis -> all groups normal - Rejected for L4440, but not essential for pairwise comparison
-
-#test for equal variances
-leveneTest(all_activity~treatment, data=experiment)
-#null hypothesis -> variances same for all groups - NOT REJECTED
-
-#One way test with equal variances - holm multiple correction
-oneway(x=experiment$treatment,y=experiment$all_activity, levene=FALSE, posthoc="holm")
-
-#ANOVA then holm adjustment
-fit <- aov(all_activity~treatment, data=experiment)
-pairwise.t.test(all_activity, treatment, p.adj = "holm")
-
-#Fig_6
-#Figure 6a
+#Fig_4
+#Figure 4a
 
 #1 day results
 
@@ -185,7 +138,7 @@ kruskal.test(lesions~treatment, data=experiment)
 #Post hoc test - non parametric using chisquare distibution due to tied data
 posthoc.kruskal.nemenyi.test(x=experiment$lesions, g=experiment$treatment, dist="Chisquare")
 
-#Figure 6b
+#Figure 4b
 
 #Day 5 
 water_lesions = c(12,16,28,41,18,81,33,30,37,88,63,30,22,23,33,13,29,39,42)
@@ -267,8 +220,8 @@ kruskal.test(lesions~treatment, data=experiment)
 #Post hoc test - non parametric using chisquare distibution due to tied data
 posthoc.kruskal.nemenyi.test(x=experiment$lesions, g=experiment$treatment, dist="Chisquare")
 
-#Fig_7
-#Figure 7a
+#Fig_5
+#Figure 5a
 
 ldh=c(100,62.5,70,66.7)
 dsrna=c(56.25,50,90,86.11)
@@ -307,80 +260,7 @@ oneway(x=experiment$treatment,y=experiment$all_percent, levene=FALSE, posthoc="h
 fit <- aov(all_percent~treatment, data=experiment)
 pairwise.t.test(all_percent, treatment, p.adj = "holm")
 
-#Sup_Fig_3
-
-mq=c(509,530,490,582)
-depc=c(374,453,393,380)
-ldh_300=c(427,518,449,572)
-ldh_900=c(543,459,428,412)
-L4440=c(394,519,415,390)
-two_b=c(522,442,417,505)
-col=c(5,11,10)
-gus_100=c(490,367,469,448)
-gus_200=c(442,444,309,458)
-gus_300=c(446,307,427,452)
-bioclay_100=c(458,425,295,347)
-bioclay_200=c(356,390,382,399)
-bioclay_300=c(391,274,313,363)
-
-all_gus=c(mq,depc,ldh_300,ldh_900,L4440,two_b,col,
-          gus_100,gus_200,gus_300,bioclay_100,
-          bioclay_200,bioclay_300)
-
-treatment=c(rep("mq",
-                length(mq)),
-            rep("depc",
-                length(depc)),
-            rep("ldh_300",
-                length(ldh_300)),
-            rep("ldh_900",
-                length(ldh_900)),
-            rep("L4440",
-                length(L4440)),
-            rep("two_b",
-                length(two_b)),
-            rep("col",
-                length(col)),
-            rep("gus_100",
-                length(gus_100)),
-            rep("gus_200",
-                length(gus_200)),
-            rep("gus_300",
-                length(gus_300)),
-            rep("bioclay_100",
-                length(bioclay_100)),
-            rep("bioclay_200",
-                length(bioclay_200)),
-            rep("bioclay_300",
-                length(bioclay_300))
-)
-experiment=data.frame(all_gus,treatment)
-
-#test for normality (threshold = 0.01 given the tests are quite robust)
-shapiro.test(mq)
-shapiro.test(depc)
-shapiro.test(ldh_300)
-shapiro.test(L4440)
-shapiro.test(two_b)
-shapiro.test(col)
-shapiro.test(gus_100)
-shapiro.test(gus_200)
-shapiro.test(gus_300)
-shapiro.test(bioclay_100)
-shapiro.test(bioclay_200)
-shapiro.test(bioclay_300)
-##null hypothesis -> all groups normal - NOT REJECTED, though <0.05
-
-#test for equal variances
-leveneTest(all_gus~treatment, data=experiment)
-#null hypothesis -> variances same for all groups - NOT REJECTED
-
-#ANOVA then holm adjustment
-fit <- aov(all_gus~treatment, data=experiment)
-summary(fit)
-pairwise.t.test(all_gus, treatment, p.adj = "holm")
-
-#Sup_Fig_5
+#Sup_Fig_6
 
 #TRIAL 3
 
